@@ -2784,6 +2784,13 @@ static cm::optional<bool> ChangeRPathXCOFF(std::string const& file,
   (void)emsg;
   return cm::nullopt;
 #else
+ 
+  // Ignore archive
+  if (file.length() >= 2 && file.back() == 'a' && file[file.length()-2] == '.') {
+    *changed = true;
+    return true;
+  }
+
   bool chg = false;
   cmXCOFF xcoff(file.c_str(), cmXCOFF::Mode::ReadWrite);
   if (!xcoff) {

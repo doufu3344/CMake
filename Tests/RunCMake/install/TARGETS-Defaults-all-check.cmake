@@ -58,12 +58,12 @@ else()
     [[include/obj2\.h]]
     [[include/obj3\.h]]
     [[lib]]
-    [[lib/liblib1\.(dylib|so)]]
+    [[lib/liblib1\.(dylib|so|a)]]
     [[lib/liblib2\.a]]
     [[lib3]]
-    [[lib3/liblib3\.(dylib|so)]]
+    [[lib3/liblib3\.(dylib|so|a)]]
     [[lib4]]
-    [[lib4/liblib4\.(dylib|so)]]
+    [[lib4/liblib4\.(dylib|so|a)]]
     )
 endif()
 check_installed("^${_check_files}$")

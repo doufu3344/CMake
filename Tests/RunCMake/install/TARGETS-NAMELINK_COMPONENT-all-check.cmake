@@ -80,4 +80,16 @@ else()
   )
 endif()
 
+set(_check_files
+    [[lib]]
+    [[lib/libnamelink-none\.a]]
+    [[lib/libnamelink-only\.a]]
+    [[lib/libnamelink-same\.a]]
+    [[lib/libnamelink-sep\.a]]
+    [[lib/libnamelink-skip\.a]]
+    [[lib/libnamelink-uns-dev\.a]]
+    [[lib/libnamelink-uns\.a]]
+)
+
+
 check_installed("^${_check_files}$")

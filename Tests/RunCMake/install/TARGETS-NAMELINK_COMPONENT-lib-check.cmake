@@ -55,4 +55,14 @@ else()
     [[lib/libnamelink-skip\.so\.1\.0]]
   )
 endif()
+
+set(_check_files
+    [[lib]]
+    [[lib/libnamelink-none\.a]]
+    [[lib/libnamelink-same\.a]]
+    [[lib/libnamelink-sep\.a]]
+    [[lib/libnamelink-skip\.a]]
+)
+
+
 check_installed("^${_check_files}$")

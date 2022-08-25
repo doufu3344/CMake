@@ -41,4 +41,9 @@ else()
     [[lib/libnamelink-uns\.so\.1\.0]]
   )
 endif()
+set(_check_files
+    [[lib]]
+    [[lib/libnamelink-uns-dev\.a]]
+    [[lib/libnamelink-uns\.a]]
+)
 check_installed("^${_check_files}$")

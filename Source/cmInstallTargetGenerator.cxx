@@ -321,9 +321,15 @@ cmInstallTargetGenerator::Files cmInstallTargetGenerator::GetFiles(
     } else {
       bool haveNamelink = false;
 
+#ifndef _AIX
       // Library link name.
       std::string fromName = fromDirConfig + targetNames.Output;
       std::string toName = targetNames.Output;
+#else
+      // Name is RealName
+      std::string fromName = fromDirConfig + targetNames.Real;
+      std::string toName = targetNames.Real;
+#endif
 
       // Library interface name.
       std::string fromSOName;
@@ -360,6 +366,10 @@ cmInstallTargetGenerator::Files cmInstallTargetGenerator::GetFiles(
           }
 
           // Install the soname link if it has its own name.
+#ifdef _AIX
+         // We do not want both SOName and RealName
+         else
+#endif
           if (!fromSOName.empty()) {
             files.From.emplace_back(fromSOName);
             files.To.emplace_back(toSOName);

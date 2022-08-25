@@ -46,15 +46,15 @@ elseif(CYGWIN)
 else()
   set(_check_files
     [[lib3]]
-    [[lib3/liblib3\.(dylib|so)]]
+    [[lib3/liblib3\.(dylib|so|a)]]
     [[lib4]]
-    [[lib4/liblib4\.(dylib|so)]]
+    [[lib4/liblib4\.(dylib|so|a)]]
     [[mybin]]
     [[mybin/exe]]
     [[myinclude]]
     [[myinclude/obj3\.h]]
     [[mylib]]
-    [[mylib/liblib1\.(dylib|so)]]
+    [[mylib/liblib1\.(dylib|so|a)]]
     [[mylib/liblib2\.a]]
     )
 endif()

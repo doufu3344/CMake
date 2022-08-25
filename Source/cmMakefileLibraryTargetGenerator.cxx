@@ -766,12 +766,12 @@ void cmMakefileLibraryTargetGenerator::WriteLibraryRules(
     vars.LinkLibraries = linkLibs.c_str();
     vars.ObjectsQuoted = buildObjs.c_str();
     std::string targetOutSOName;
-    if (this->GeneratorTarget->HasSOName(this->GetConfigName())) {
+//    if (this->GeneratorTarget->HasSOName(this->GetConfigName())) {
       vars.SONameFlag = this->Makefile->GetSONameFlag(linkLanguage);
       targetOutSOName = this->LocalGenerator->ConvertToOutputFormat(
         this->TargetNames.SharedObject.c_str(), cmOutputConverter::SHELL);
       vars.TargetSOName = targetOutSOName.c_str();
-    }
+//    }
     vars.LinkFlags = linkFlags.c_str();
 
     vars.Manifests = manifests.c_str();
@@ -913,6 +913,7 @@ void cmMakefileLibraryTargetGenerator::WriteLibraryRules(
   cm::append(commands, commands1);
   commands1.clear();
 
+#ifndef _AIX
   // Add a rule to create necessary symlinks for the library.
   // Frameworks are handled by cmOSXBundleGenerator.
   if (targetOutPath != targetOutPathReal &&
@@ -927,6 +928,7 @@ void cmMakefileLibraryTargetGenerator::WriteLibraryRules(
     cm::append(commands, commands1);
     commands1.clear();
   }
+#endif
 
   // Add the post-build rules when building but not when relinking.
   if (!relink) {

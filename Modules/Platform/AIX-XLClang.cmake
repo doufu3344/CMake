@@ -8,8 +8,8 @@ if(__AIX_COMPILER_XLCLANG)
 endif()
 set(__AIX_COMPILER_XLCLANG 1)
 
-include(Platform/AIX-XL)
+include(Platform/AIX-GNU)
 
 macro(__aix_compiler_xlclang lang)
-  __aix_compiler_xl(${lang})
+  __aix_compiler_gnu(${lang})
 endmacro()
