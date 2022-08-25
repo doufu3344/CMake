@@ -4961,7 +4961,12 @@ cmGeneratorTarget::Names cmGeneratorTarget::GetLibraryNames(
                             prefix, targetNames.Base, suffix);
 
   // The library name.
-  targetNames.Output = prefix + targetNames.Base;
+  if (this->GetType() == cmStateEnums::STATIC_LIBRARY) {
+    targetNames.Output = prefix + targetNames.Base + suffix;
+  }
+  else {
+    targetNames.Output = prefix + targetNames.Base;
+  }
 
   if (this->IsFrameworkOnApple()) {
     targetNames.Real = prefix;
@@ -4973,14 +4978,26 @@ cmGeneratorTarget::Names cmGeneratorTarget::GetLibraryNames(
     targetNames.Real += targetNames.Base + suffix;
     targetNames.SharedObject = targetNames.Real + suffix;
   } else {
-    // The library's soname.
-    this->ComputeVersionedName(targetNames.SharedObject, prefix,
-                               targetNames.Base, suffix, targetNames.Output + ".so",
-                               soversion);
-    // The library's real name on disk.
-    this->ComputeVersionedName(targetNames.Real, prefix, targetNames.Base,
-                               suffix, targetNames.Output + suffix, cmValue(""));
-    targetNames.Real.pop_back();
+    if (this->GetType() == cmStateEnums::STATIC_LIBRARY) {
+      // The library's soname.
+      this->ComputeVersionedName(targetNames.SharedObject, prefix,
+                                 targetNames.Base, suffix, targetNames.Output,
+                                 soversion);
+
+      // The library's real name on disk.
+      this->ComputeVersionedName(targetNames.Real, prefix, targetNames.Base,
+                                 suffix, targetNames.Output, version);
+  
+    } else {
+      // The library's soname.
+      this->ComputeVersionedName(targetNames.SharedObject, prefix,
+                                 targetNames.Base, suffix, targetNames.Output + ".so",
+                                 soversion);
+      // The library's real name on disk.
+      this->ComputeVersionedName(targetNames.Real, prefix, targetNames.Base,
+                                 suffix, targetNames.Output + suffix, cmValue(""));
+      targetNames.Real.pop_back();
+    }
   }
 
   // The import library name.
